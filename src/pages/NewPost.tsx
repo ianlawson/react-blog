@@ -1,5 +1,5 @@
 interface NewPostProps {
-	handleSubmit: (id: React.FormEvent<HTMLFormElement>) => void;
+	handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 	postTitle: string;
 	setPostTitle: (value: string) => void;
 	postBody: string;

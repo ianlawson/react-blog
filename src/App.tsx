@@ -60,8 +60,9 @@ export default function App() {
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (!postTitle.trim() || !postBody.trim()) return;
+		const id = posts.length ? `${+posts[posts.length - 1].id + 1}` : "1";
 		const post = {
-			id: posts.length ? `${+posts[posts.length - 1].id + 1}` : "1",
+			id,
 			title: postTitle,
 			datetime: format(new Date(), "MMMM dd, yyyy pp"),
 			body: postBody,
@@ -71,7 +72,7 @@ export default function App() {
 			setPosts([...posts, response.data]);
 			setPostTitle("");
 			setPostBody("");
-			navigate("/");
+			navigate(`/post/${id}`);
 		} catch (err: unknown) {
 			if (err && typeof err === "object" && "isAxiosError" in err) {
 				const axiosError = err as import("axios").AxiosError;

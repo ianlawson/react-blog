@@ -81,7 +81,7 @@ body {
 	width: 100%;
 	min-height: 48px;
 	font-size: 1rem;
-	padding: 0.25rem;
+	padding: 0.25rem 0.5rem;
 	border-radius: 0.25rem;
 	outline: none;
 }
@@ -212,12 +212,12 @@ body {
 }
 
 .PostPage button {
-	height: 48px;
-	min-width: 48px;
+	height: 40px;
+	min-width: 40px;
 	border-radius: 0.25rem;
-	padding: 0.5rem;
+	padding: 0.5rem 0.75rem;
 	margin-right: 0.5rem;
-	font-size: 1rem;
+	font-size: 0.8rem;
 	color: #fff;
 	cursor: pointer;
 }
@@ -236,14 +236,14 @@ body {
 
 @media only screen and (min-width: 610px) {
 	html {
-		font-size: 22px;
+		font-size: 20px;
 	}
 
 	.Header h1 {
 		font-size: 2rem;
 	}
 
-	.Header h1 a {
+	.Header a {
 		color: #333;
 		text-decoration: none;
 	}
