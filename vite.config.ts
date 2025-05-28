@@ -3,6 +3,6 @@ import { defineConfig } from "vite";
 
 // https://vite.dev/config/
 export default defineConfig({
-	base: "/react_router",
+	base: "/react-router",
 	plugins: [react()],
 });
