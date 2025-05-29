@@ -4,6 +4,7 @@ import Post from "./Post";
 interface FeedProps {
 	posts: PostItem[];
 }
+
 export default function Feed({ posts }: FeedProps) {
 	return (
 		<>

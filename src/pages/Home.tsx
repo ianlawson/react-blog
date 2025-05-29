@@ -1,13 +1,9 @@
 import Feed from "../components/Feed";
-import type { PostItem } from "../types";
+import { useData } from "../hooks/useData";
 
-interface HomeProps {
-	posts: PostItem[];
-	fetchError: string | null;
-	isLoading: boolean;
-}
+export default function Home() {
+	const { searchResults, fetchError, isLoading } = useData();
 
-export default function Home({ posts, fetchError, isLoading }: HomeProps) {
 	return (
 		<main className="Home">
 			{isLoading && <p className="statusMsg">Loading posts...</p>}
@@ -18,8 +14,8 @@ export default function Home({ posts, fetchError, isLoading }: HomeProps) {
 			)}
 			{!isLoading &&
 				!fetchError &&
-				(posts.length ? (
-					<Feed posts={posts} />
+				(searchResults.length ? (
+					<Feed posts={searchResults} />
 				) : (
 					<p className="statusMsg">No posts to display.</p>
 				))}

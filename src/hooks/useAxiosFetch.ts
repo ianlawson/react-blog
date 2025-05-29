@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-const useAxiosFetch = <T>(dataUrl: string) => {
-	const [data, setData] = useState<T[]>([]);
+export const useAxiosFetch = <T>(dataUrl: string) => {
+	const [data, setData] = useState<T | null>(null);
 	const [fetchError, setFetchError] = useState<string | null>(null);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -12,7 +12,7 @@ const useAxiosFetch = <T>(dataUrl: string) => {
 		const fetchData = async (url: string) => {
 			setIsLoading(true);
 			try {
-				const response = await axios.get<T[]>(url, {
+				const response = await axios.get<T>(url, {
 					signal: controller.signal,
 				});
 				setData(response.data);
@@ -27,7 +27,7 @@ const useAxiosFetch = <T>(dataUrl: string) => {
 				} else {
 					setFetchError("An unknown error occurred");
 				}
-				setData([]);
+				setData(null);
 			} finally {
 				setIsLoading(false);
 			}
@@ -42,5 +42,3 @@ const useAxiosFetch = <T>(dataUrl: string) => {
 
 	return { data, fetchError, isLoading };
 };
-
-export default useAxiosFetch;

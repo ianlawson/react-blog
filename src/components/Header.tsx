@@ -1,12 +1,14 @@
 import { FaLaptop, FaMobileAlt, FaTabletAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useWindowSize } from "../hooks/useWindowSize";
 
 interface HeaderProps {
 	title: string;
-	width: number | undefined;
 }
 
-export default function Header({ title, width }: HeaderProps) {
+export default function Header({ title }: HeaderProps) {
+	const { width } = useWindowSize();
+
 	return (
 		<header className="Header">
 			<h1>

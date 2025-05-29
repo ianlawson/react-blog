@@ -1,15 +1,35 @@
-import { Link, useParams } from "react-router-dom";
-import type { PostItem } from "../types";
+import axios from "axios";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import api from "../api/posts";
+import { useData } from "../hooks/useData";
 import { formatDateTime } from "../utils";
 
-interface PostProps {
-	posts: PostItem[];
-	handleDelete: (id: string) => void;
-}
-
-export default function Post({ posts, handleDelete }: PostProps) {
+export default function Post() {
+	const { posts, setPosts } = useData();
 	const { id } = useParams();
+	const navigate = useNavigate();
+
 	const post = posts.find((post) => post.id === id);
+
+	const handleDelete = async (id: string) => {
+		try {
+			await api.delete(`/posts/${id}`);
+			setPosts(posts.filter((post) => post.id !== id));
+			navigate("/");
+		} catch (err: unknown) {
+			if (err && typeof err === "object" && axios.isAxiosError(err)) {
+				const axiosError = err as import("axios").AxiosError;
+				console.error(
+					`Error while deleting post (id: ${id}):`,
+					axiosError.response?.status,
+					axiosError.response?.data || axiosError.message,
+				);
+			} else {
+				console.error("Unexpected error while deleting post:", err);
+			}
+		}
+	};
+
 	return (
 		<main className="PostPage">
 			<article className="post">

@@ -1,11 +1,8 @@
 import { Link } from "react-router-dom";
+import { useData } from "../hooks/useData";
 
-interface NavigationProps {
-	search: string;
-	setSearch: (value: string) => void;
-}
-
-export default function Navigation({ search, setSearch }: NavigationProps) {
+export default function Navigation() {
+	const { search, setSearch } = useData();
 	return (
 		<nav className="Navigation">
 			<form className="searchForm" onSubmit={(e) => e.preventDefault()}>
