@@ -3,7 +3,7 @@ import type { WindowSize } from "../types";
 
 const RESIZE_EVENT = "resize";
 
-export const useWindowSize = () => {
+export function useWindowSize(): WindowSize {
 	const [windowSize, setWindowSize] = useState<WindowSize>({
 		width: undefined,
 		height: undefined,
@@ -25,4 +25,4 @@ export const useWindowSize = () => {
 	}, []);
 
 	return windowSize;
-};
+}

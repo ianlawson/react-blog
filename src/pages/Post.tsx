@@ -1,6 +1,5 @@
-import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import api from "../api/posts";
+import { deletePost } from "../api/posts";
 import { useData } from "../hooks/useData";
 import { formatDateTime } from "../utils";
 
@@ -13,17 +12,13 @@ export default function Post() {
 
 	const handleDelete = async (id: string) => {
 		try {
-			await api.delete(`/posts/${id}`);
+			await deletePost(id);
 			setPosts(posts.filter((post) => post.id !== id));
 			navigate("/");
-		} catch (err: unknown) {
-			if (err && typeof err === "object" && axios.isAxiosError(err)) {
-				const axiosError = err as import("axios").AxiosError;
-				console.error(
-					`Error while deleting post (id: ${id}):`,
-					axiosError.response?.status,
-					axiosError.response?.data || axiosError.message,
-				);
+		} catch (err) {
+			if (err instanceof Error) {
+				console.error(`Error while deleting post (id: ${id}):`, err.message);
+				// Optionally, set error state here to display in the UI
 			} else {
 				console.error("Unexpected error while deleting post:", err);
 			}

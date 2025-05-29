@@ -1,5 +1,64 @@
-import axios from "axios";
+import type { PostItem } from "../types";
 
-export default axios.create({
-	baseURL: "http://localhost:3500",
-});
+const BASE_URL = "http://localhost:3500";
+
+export async function fetchPosts(): Promise<PostItem[]> {
+	try {
+		const response = await fetch(`${BASE_URL}/posts`);
+		if (!response.ok)
+			throw new Error(`Failed to fetch posts: ${response.status}`);
+		return await response.json();
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+
+export async function createPost(post: PostItem): Promise<PostItem> {
+	try {
+		const response = await fetch(`${BASE_URL}/posts`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(post),
+		});
+		if (!response.ok)
+			throw new Error(`Failed to create post: ${response.status}`);
+		return await response.json();
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+
+export async function updatePost(
+	id: string,
+	post: PostItem,
+): Promise<PostItem> {
+	try {
+		const response = await fetch(`${BASE_URL}/posts/${id}`, {
+			method: "PUT",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(post),
+		});
+		if (!response.ok)
+			throw new Error(`Failed to update post: ${response.status}`);
+		return await response.json();
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+
+export async function deletePost(id: string): Promise<void> {
+	try {
+		const response = await fetch(`${BASE_URL}/posts/${id}`, {
+			method: "DELETE",
+		});
+		if (!response.ok)
+			throw new Error(`Failed to delete post: ${response.status}`);
+		// If your API returns something, you can return response.json();
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}

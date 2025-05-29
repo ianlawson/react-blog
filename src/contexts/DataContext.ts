@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import { useAxiosFetch } from "../hooks/useAxiosFetch";
+import { useFetchPosts } from "../hooks/useFetchPosts";
 import type { DataContextType, PostItem } from "../types";
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
@@ -8,9 +8,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
 	const [posts, setPosts] = useState<PostItem[]>([]);
 	const [search, setSearch] = useState<string>("");
 	const [searchResults, setSearchResults] = useState<PostItem[]>([]);
-	const { data, fetchError, isLoading } = useAxiosFetch<PostItem[]>(
-		"http://localhost:3500/posts",
-	);
+	const { data, fetchError, isLoading } = useFetchPosts();
 
 	useEffect(() => {
 		setPosts(data ?? []);

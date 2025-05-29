@@ -1,7 +1,6 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import api from "../api/posts";
+import { updatePost } from "../api/posts";
 import { useData } from "../hooks/useData";
 
 export default function EditPost() {
@@ -28,21 +27,14 @@ export default function EditPost() {
 			body: editBody,
 		};
 		try {
-			const response = await api.put(`/posts/${id}`, post);
-			setPosts(
-				posts.map((post) => (post.id === id ? { ...response.data } : post)),
-			);
+			const updatedPost = await updatePost(id, post);
+			setPosts(posts.map((p) => (p.id === id ? updatedPost : p)));
 			setEditTitle("");
 			setEditBody("");
 			navigate(`/post/${id}`);
-		} catch (err: unknown) {
-			if (err && typeof err === "object" && axios.isAxiosError(err)) {
-				const axiosError = err as import("axios").AxiosError;
-				console.error(
-					`Error while editing post (id: ${id}):`,
-					axiosError.response?.status,
-					axiosError.response?.data || axiosError.message,
-				);
+		} catch (err) {
+			if (err instanceof Error) {
+				console.error(`Error while editing post (id: ${id}):`, err.message);
 			} else {
 				console.error("Unexpected error while editing post:", err);
 			}
