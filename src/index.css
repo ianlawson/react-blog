@@ -234,18 +234,23 @@ body {
 	margin-top: 2rem;
 }
 
+.Header a {
+	color: #333;
+	text-decoration: none;
+}
+
+.searchForm {
+	width: 100%;
+	padding: 8px;
+}
+
 @media only screen and (min-width: 610px) {
 	html {
 		font-size: 20px;
 	}
 
-	.Header h1 {
+	.Header h1 a {
 		font-size: 2rem;
-	}
-
-	.Header a {
-		color: #333;
-		text-decoration: none;
 	}
 
 	.Navigation {
@@ -265,15 +270,6 @@ body {
 	.Navigation li:focus a {
 		background-color: #eee;
 		color: #333;
-	}
-
-	.searchForm {
-		width: 50%;
-		padding: 0.5rem 0;
-	}
-
-	.searchForm input[type="text"] {
-		margin-left: 0.5rem;
 	}
 
 	.newPostForm textarea {

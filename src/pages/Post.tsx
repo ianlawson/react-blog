@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import type { PostItem } from "../types";
+import { formatDateTime } from "../utils";
 
 interface PostProps {
 	posts: PostItem[];
@@ -15,7 +16,7 @@ export default function Post({ posts, handleDelete }: PostProps) {
 				{post ? (
 					<>
 						<h2>{post.title}</h2>
-						<p className="postDate">{post.datetime}</p>
+						<p className="postDate">{formatDateTime(post.datetime)}</p>
 						<p className="postBody">{post.body}</p>
 						<Link to={`/post/edit/${post.id}`}>
 							<button type="button" className="editButton">
