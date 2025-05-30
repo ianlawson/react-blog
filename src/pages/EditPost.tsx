@@ -1,36 +1,39 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { updatePost } from "../api/posts";
-import { useData } from "../hooks/useData";
+import { useDataStore } from "../store/dataStore";
 
 export default function EditPost() {
-	const { posts, setPosts } = useData();
-	const [editTitle, setEditTitle] = useState<string>("");
-	const [editBody, setEditBody] = useState<string>("");
-	const navigate = useNavigate();
 	const { id } = useParams();
+	const post = useDataStore((state) =>
+		state.posts.find((post) => post.id === id),
+	);
+	const postTitle = useDataStore((state) => state.postTitle);
+	const setPostTitle = useDataStore((state) => state.setPostTitle);
+	const postBody = useDataStore((state) => state.postBody);
+	const setPostBody = useDataStore((state) => state.setPostBody);
+	const editPost = useDataStore((state) => state.editPost);
+	const navigate = useNavigate();
 
-	const post = posts.find((post) => post.id === id);
-
+	// biome-ignore lint/correctness/useExhaustiveDependencies(setPostTitle): Zustand actions are stable
+	// biome-ignore lint/correctness/useExhaustiveDependencies(setPostBody): Zustand actions are stable
 	useEffect(() => {
 		if (post) {
-			setEditTitle(post.title);
-			setEditBody(post.body);
+			setPostTitle(post.title);
+			setPostBody(post.body);
 		}
 	}, [post]);
 
 	const handleEdit = async (id: string) => {
 		const post = {
 			id,
-			title: editTitle,
+			title: postTitle,
 			datetime: new Date().toISOString(),
-			body: editBody,
+			body: postBody,
 		};
 		try {
-			const updatedPost = await updatePost(id, post);
-			setPosts(posts.map((p) => (p.id === id ? updatedPost : p)));
-			setEditTitle("");
-			setEditBody("");
+			await editPost(post);
+			setPostTitle("");
+			setPostBody("");
 			navigate(`/post/${id}`);
 		} catch (err) {
 			if (err instanceof Error) {
@@ -52,15 +55,15 @@ export default function EditPost() {
 							id="post"
 							type="text"
 							required
-							value={editTitle}
-							onChange={(e) => setEditTitle(e.target.value)}
+							value={postTitle}
+							onChange={(e) => setPostTitle(e.target.value)}
 						/>
 						<label htmlFor="postBody">Post</label>
 						<textarea
 							id="postBody"
 							required
-							value={editBody}
-							onChange={(e) => setEditBody(e.target.value)}
+							value={postBody}
+							onChange={(e) => setPostBody(e.target.value)}
 						/>
 						<button type="submit" onClick={() => handleEdit(post.id)}>
 							Submit

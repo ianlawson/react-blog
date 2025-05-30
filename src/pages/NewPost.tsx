@@ -1,12 +1,13 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createPost } from "../api/posts";
-import { useData } from "../hooks/useData";
+import { useDataStore } from "../store/dataStore";
 
 export default function NewPost() {
-	const { posts, setPosts } = useData();
-	const [postTitle, setPostTitle] = useState<string>("");
-	const [postBody, setPostBody] = useState<string>("");
+	const posts = useDataStore((state) => state.posts);
+	const postTitle = useDataStore((state) => state.postTitle);
+	const setPostTitle = useDataStore((state) => state.setPostTitle);
+	const postBody = useDataStore((state) => state.postBody);
+	const setPostBody = useDataStore((state) => state.setPostBody);
+	const savePost = useDataStore((state) => state.savePost);
 	const navigate = useNavigate();
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -20,8 +21,7 @@ export default function NewPost() {
 			body: postBody,
 		};
 		try {
-			const newPost = await createPost(post);
-			setPosts([...posts, newPost]);
+			await savePost(post);
 			setPostTitle("");
 			setPostBody("");
 			navigate(`/post/${id}`);

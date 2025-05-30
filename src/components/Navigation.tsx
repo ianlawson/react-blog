@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
-import { useData } from "../hooks/useData";
+import { useDataStore } from "../store/dataStore";
 
 export default function Navigation() {
-	const { search, setSearch } = useData();
+	const search = useDataStore((state) => state.search);
+	const setSearch = useDataStore((state) => state.setSearch);
+
 	return (
 		<nav className="Navigation">
 			<form className="searchForm" onSubmit={(e) => e.preventDefault()}>

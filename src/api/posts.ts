@@ -30,12 +30,9 @@ export async function createPost(post: PostItem): Promise<PostItem> {
 	}
 }
 
-export async function updatePost(
-	id: string,
-	post: PostItem,
-): Promise<PostItem> {
+export async function updatePost(post: PostItem): Promise<PostItem> {
 	try {
-		const response = await fetch(`${BASE_URL}/posts/${id}`, {
+		const response = await fetch(`${BASE_URL}/posts/${post.id}`, {
 			method: "PUT",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(post),
@@ -49,14 +46,13 @@ export async function updatePost(
 	}
 }
 
-export async function deletePost(id: string): Promise<void> {
+export async function removePost(id: string): Promise<void> {
 	try {
 		const response = await fetch(`${BASE_URL}/posts/${id}`, {
 			method: "DELETE",
 		});
 		if (!response.ok)
 			throw new Error(`Failed to delete post: ${response.status}`);
-		// If your API returns something, you can return response.json();
 	} catch (error) {
 		console.error(error);
 		throw error;

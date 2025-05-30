@@ -1,19 +1,18 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { deletePost } from "../api/posts";
-import { useData } from "../hooks/useData";
+import { useDataStore } from "../store/dataStore";
 import { formatDateTime } from "../utils";
 
 export default function Post() {
-	const { posts, setPosts } = useData();
 	const { id } = useParams();
+	const post = useDataStore((state) =>
+		state.posts.find((post) => post.id === id),
+	);
+	const deletePost = useDataStore((state) => state.deletePost);
 	const navigate = useNavigate();
-
-	const post = posts.find((post) => post.id === id);
 
 	const handleDelete = async (id: string) => {
 		try {
 			await deletePost(id);
-			setPosts(posts.filter((post) => post.id !== id));
 			navigate("/");
 		} catch (err) {
 			if (err instanceof Error) {
