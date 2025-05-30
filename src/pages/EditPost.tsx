@@ -65,7 +65,11 @@ export default function EditPost() {
 							value={postBody}
 							onChange={(e) => setPostBody(e.target.value)}
 						/>
-						<button type="submit" onClick={() => handleEdit(post.id)}>
+						<button
+							type="submit"
+							disabled={!postTitle.trim() || !postBody.trim()}
+							onClick={() => handleEdit(post.id)}
+						>
 							Submit
 						</button>
 					</form>

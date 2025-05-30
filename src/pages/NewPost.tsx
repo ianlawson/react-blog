@@ -53,7 +53,9 @@ export default function NewPost() {
 					value={postBody}
 					onChange={(e) => setPostBody(e.target.value)}
 				/>
-				<button type="submit">Submit</button>
+				<button type="submit" disabled={!postTitle.trim() || !postBody.trim()}>
+					Submit
+				</button>
 			</form>
 		</main>
 	);
