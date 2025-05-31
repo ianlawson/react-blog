@@ -1,5 +1,6 @@
 import type { PostItem } from "../types";
 
+// TODO: Move to environment variable
 const BASE_URL = "http://localhost:3500";
 
 export async function fetchPosts(): Promise<PostItem[]> {

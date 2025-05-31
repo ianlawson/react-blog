@@ -13,6 +13,7 @@ export default function NewPost() {
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (!postTitle.trim() || !postBody.trim()) return;
+		// TODO: Move ID generation to backend
 		const id = posts.length ? `${+posts[posts.length - 1].id + 1}` : "1";
 		const post = {
 			id,

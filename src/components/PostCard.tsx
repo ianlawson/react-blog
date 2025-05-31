@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 import type { PostItem } from "../types";
 import { formatDateTime } from "../utils";
 
-interface PostProps {
+interface PostCardProps {
 	post: PostItem;
 }
-export default function Post({ post }: PostProps) {
+export default function PostCard({ post }: PostCardProps) {
 	return (
 		<article className="post">
 			<Link to={`/post/${post.id}`}>
