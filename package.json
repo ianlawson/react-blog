@@ -1,6 +1,6 @@
 {
-	"name": "react_router",
-	"homepage": "https://ianlawson.github.io/react-router/",
+	"name": "react-blog",
+	"homepage": "https://ianlawson.github.io/react-blog/",
 	"private": true,
 	"version": "0.0.0",
 	"type": "module",

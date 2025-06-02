@@ -3,7 +3,10 @@ export default function About() {
 		<main className="About">
 			<h2>About</h2>
 			<p style={{ marginTop: "1rem" }}>
-				This blog app is a project in the Learn React tutorial series.
+				Following <a href="https://github.com/gitdagray">Dave Gray</a>'s course:{" "}
+				<a href="https://github.com/gitdagray/react_resources">
+					React JS for Beginners
+				</a>
 			</p>
 		</main>
 	);

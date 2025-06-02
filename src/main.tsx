@@ -9,7 +9,7 @@ const rootElement = document.getElementById("root");
 if (rootElement) {
 	createRoot(rootElement).render(
 		<StrictMode>
-			<BrowserRouter basename="/react-router/">
+			<BrowserRouter basename="/react-blog/">
 				<Routes>
 					<Route path="/*" element={<App />} />
 				</Routes>
